@@ -14,3 +14,17 @@ pokemonList[2] = {
     height: 2, 
     types: ["grass", "poison"]
 };
+for (let i = 0; i < pokemonList.length; i++) {
+    /*assigning varibles for current Pokemon's name and height*/
+    let name = pokemonList[i].name;
+    let height = pokemonList[i].height;
+
+    /*Writing name and height to document*/
+    document.write(name + " " + height);
+
+    /*Testing if height is over 1m*/
+    if (height > 1) {
+        document.write(" - Wow, that's big!");
+    }
+    document.write("<br>");
+}s
