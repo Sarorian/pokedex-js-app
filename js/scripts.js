@@ -1,20 +1,3 @@
-// let pokemonList = [];
-// pokemonList[0] = {
-//     name: "Bulbasaur", 
-//     height: 0.7, 
-//     types: ["grass", "poison"]
-// };
-// pokemonList[1] = {
-//     name: "Ivysaur", 
-//     height: 1, 
-//     types: ["grass", "poison"]
-// };
-// pokemonList[2] = {
-//     name: "Venusaur", 
-//     height: 2, 
-//     types: ["grass", "poison"]
-// };
-
 let pokemonRepository = (function() {
     let pokemonList = [];
     pokemonList[0] = {
@@ -49,16 +32,31 @@ let pokemonRepository = (function() {
         }
     }  
 
+    function addListItem(pokemon) {
+        let list = document.querySelector("ul");
+        let listItem = document.createElement("li");
+        let button = document.createElement("button");
+        button.innerText = pokemon.name;
+        button.classList.add("pokemon-button");
+        listItem.append(button);
+        list.append(listItem);
+        button.addEventListener('click', function () {
+            showDeatils(pokemon);
+        });
+    }
+
+    function showDeatils(pokemon) {
+        console.log(pokemon);
+    }
+
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        addListItem: addListItem,
+        showDeatils: showDeatils
     };
 })();
 
 pokemonRepository.getAll().forEach(function(pokemon) {
-    document.write(pokemon.name + " " + pokemon.height);
-    if (pokemon.height > 1) {
-         document.write(" - Wow, that's big!");
-    }
-    document.write("<br>");
+    pokemonRepository.addListItem(pokemon);
 });
