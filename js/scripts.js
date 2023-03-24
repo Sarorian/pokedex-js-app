@@ -12,48 +12,66 @@ let pokemonRepository = (function() {
 
     function addListItem(pokemon) {
         let list = document.querySelector("ul");
-
         let listItem = document.createElement("li");
-        listItem.classList.add("list-group-item");
-        listItem.classList.add("col-md-6");
-
+        let row = document.querySelector(".row");
+        let divCol = document.createElement("div");
+        divCol.classList.add("col-md-6", "col-lg-4", "col-xl-3");
+        listItem.classList.add('list-group-item');
         let button = document.createElement("button");
-        button.classList.add("btn-block");
-        button.classList.add("btn-primary");
-        button.setAttribute('data-toggle', 'modal');
-        button.setAttribute('data-target', '#exampleModal');
-
-        button.innerText = pokemon.name;
-
-        listItem.appendChild(button);
-        list.appendChild(listItem);
-
-        // button.addEventListener('click', function () {
-        //     showDeatils(pokemon);
-        // });
+        button.classList.add('btn', 'btn-primary');
+        button.dataset.toggle = "modal";
+        button.dataset.target = "#exampleModal";
+        button.innerText = properCase(pokemon.name);
+        // button.classList.add("pokemon-button");
+        row.append(divCol);
+        listItem.append(button);
+        divCol.append(listItem);
+        button.addEventListener('click', function () {
+            showDeatils(pokemon);
+        });
     }
 
     function showModal(pokemon) {
-       let modalBody = $(".modal-body");
-       let modalTitle = $(".modal-title");
 
-       modalBody.empty();
-       modalTitle.empty();
+        let modalTitle = document.querySelector('#exampleModalLabel');
+        modalTitle.innerHTML = properCase(pokemon.name);
+        
+        let modal = document.querySelector('#modalBody'); 
+        modal.innerHTML = "";
 
-       let pkmName = $("<h1>" + pokemon.name + "</h1>");
-       let pkmImage = $('<img class="modal-img" style="width:50%">');
-       pkmImage.attr("src", pokemon.imageUrl);
-       let pkmHeight = $("<p>" + "Height : " + pokemon.height + "</p>");
-       
-       modalTitle.append(pkmName);
-       modalBody.append(pkmImage);
-       modalBody.append(pkmHeight);
+        let imageElement = document.createElement("img");
+        imageElement.setAttribute("src", pokemon.imageUrl);
+
+        let pokemonHeightDiv = document.createElement('div');
+        let pokemonHeightText = document.createElement("span");
+        let pokemonHeight = document.createElement("span");
+        pokemonHeightText.innerHTML = "Height of: ";
+        pokemonHeight.innerHTML = pokemon.height;
+        
+ 
+
+        modal.appendChild(imageElement);
+        modal.appendChild(pokemonHeightDiv);
+        pokemonHeightDiv.appendChild(pokemonHeightText);
+        pokemonHeightDiv.appendChild(pokemonHeight);
+
+        modal.classList.add('is-visible');
+    
+      
       }
 
       function hideModal() {
-        let modalContainer = document.querySelector('#modal-container');
+        let modalContainer = document.querySelector('#exampleModal');
         modalContainer.classList.remove('is-visible');
+        let modalTitle = document.querySelector('#exampleModalLabel');
+        modalTitle.innerHTML = '';
+        let modal = document.querySelector('#modalBody');
+        modal.innerHTML = '';
       }
+
+    function properCase(string) {
+        return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+    }
 
     function showDeatils(pokemon) {
         loadDetails(pokemon).then(function () {
@@ -91,11 +109,22 @@ let pokemonRepository = (function() {
     }
 
     window.addEventListener('keydown', (e) => {
-        let modalContainer = document.querySelector('#modal-container');
+        let modalContainer = document.querySelector('#exampleModal');
         if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
           hideModal();  
         }
       });
+
+    let search = document.querySelector('#Search');
+    search.addEventListener('keyup', (e) => {
+        const regexp = new RegExp(`^${search.value}`,'i')
+        $(".pokemon-list").children("div").children("div").children("li").each(function() {
+            $(this).addClass("hide");
+            if (regexp.test($(this).find("button").html())) {
+                $(this).removeClass("hide");
+            }  
+        })
+    })
 
     return {
         add: add,
@@ -112,3 +141,4 @@ pokemonRepository.loadList().then(function() {
         pokemonRepository.addListItem(pokemon);
     });
 });
+
