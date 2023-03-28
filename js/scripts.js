@@ -118,7 +118,7 @@ let pokemonRepository = (function() {
     let search = document.querySelector('#Search');
     search.addEventListener('keyup', (e) => {
         const regexp = new RegExp(`^${search.value}`,'i')
-        $(".pokemon-list").children("div").children("div").children("li").each(function() {
+        $(".pokemon-list").children("div").children("div").each(function() {
             $(this).addClass("hide");
             if (regexp.test($(this).find("button").html())) {
                 $(this).removeClass("hide");
