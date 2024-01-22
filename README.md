@@ -1,7 +1,32 @@
-**Simple Pokedex App**
+# Pokedex JavaScript Portfolio Project
 
-This is a webpage made for Excersize 1 of CareerFoundry. It include a list of the first 151 Pokemon, a search bar, and descriptions of each Pokemon including an image and their height.
+This project displays a list of the first 151 Pokemon. Search for any Pokemon you want and get a description and picture of them.
 
-This project uses JavaScript, jQuery, the Bootstrap Framework, and CSS.
+## Stack Used
 
-This project uses the Pokeapi API
+- JavaScript
+- Bootstrap Framework
+- jQuery
+- Pokeapi API
+
+## Features
+
+- Ability to see all original 151 Pokemon
+- Responsive design
+- Modals of Pokemon with descriptions and images
+- Working search bar
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Open the index.html file
+4. 
+## Author
+
+- **Owen Wilson**
+
+## License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
